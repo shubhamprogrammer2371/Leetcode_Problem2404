@@ -1,0 +1,34 @@
+int mostFrequentEven(int* nums, int numsSize){
+    int i, *hash = calloc(sizeof(int), 100001) , maxCount = 0 , mostFrequentElement;
+    for (i = 0 ; i < numsSize ; i++) 
+        hash[nums[i]] += (!(nums[i]&1)) ? 1 : 0;
+    mostFrequentElement = hash[0]; 
+    for (i = 0 ; i <= 100001 ; i += 2) 
+    {
+        if (hash[i] > maxCount) 
+        {
+            mostFrequentElement = i;
+            maxCount = hash[i];
+        }
+    }
+    free(hash);
+    return maxCount ? mostFrequentElement : -1;
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+int mostFrequentEven(int* nums, int numsSize){
+    int *A = calloc(50001,sizeof(int)) , max = 0 , ans = -1;
+    for(int i = 0 ; i < numsSize ; i++)
+    {
+        if(!(nums[i]%2) && ((++A[nums[i]/2]) >= max))
+        {
+            ans = (A[nums[i]/2] == max) ? ((nums[i] < ans) ? nums[i] : ans) : nums[i];
+            max = A[nums[i]/2];
+        }
+    }
+    free(A);
+    return ans;
+}
